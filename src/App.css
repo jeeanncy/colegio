@@ -1,0 +1,21 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+  font-family: "Mulish", sans-serif;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+}
