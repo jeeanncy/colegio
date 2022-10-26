@@ -14,7 +14,7 @@ export default function Home() {
       <div className="flex-1 items-center flex w-full justify-evenly p-8 gap-16 flex-wrap">
         <HomeCard icon={faFilePen} title="Matricula" path="matricula" />
         <HomeCard icon={faDisplay} title="Historial" path="historial" />
-        <HomeCard icon={faGraduationCap} title="Alumnos" path="alumnos" />
+        <HomeCard icon={faGraduationCap} title="Alumnos" path="alumno" />
         <HomeCard
           icon={faChalkboardTeacher}
           title="Profesores"

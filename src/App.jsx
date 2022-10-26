@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Alumnos from './pages/Alumnos';
+import Alumno from './pages/Alumno';
+import Apoderado from './pages/Apoderado';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <div className="flex-1 flex flex-col items-center py-5 max-w-[75rem] w-full flex-w">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/alumnos" element={<Alumnos />} />
+              <Route path="/alumno" element={<Alumno />} />
+              <Route path="/apoderado" element={<Apoderado />} />
             </Routes>
           </div>
         </main>
