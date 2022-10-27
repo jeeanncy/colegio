@@ -8,11 +8,11 @@ import Apoderado from './pages/Apoderado';
 
 function App() {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex h-screen flex-col">
       <BrowserRouter>
         <Navbar />
-        <main className="flex-1 flex flex-col items-center w-full">
-          <div className="flex-1 flex flex-col items-center py-5 max-w-[75rem] w-full flex-w">
+        <main className="flex w-full flex-1 flex-col items-center">
+          <div className="flex-w flex w-full max-w-[75rem] flex-1 flex-col items-center py-5">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/alumno" element={<Alumno />} />

@@ -15,10 +15,5 @@ export default function useForm(initialForm = {}) {
     setFormState(initialForm);
   };
 
-  return {
-    ...formState,
-    formState,
-    onInputChange,
-    onResetForm,
-  };
+  return [formState, onInputChange, setFormState, onResetForm];
 }

@@ -9,9 +9,9 @@ import HomeCard from '../components/HomeCard';
 export default function Home() {
   return (
     <>
-      <span className="text-4xl font-bold m-2">Hola Sandro Ramos</span>
+      <span className="m-2 text-4xl font-bold">Hola Sandro Ramos</span>
       <span className="text-3xl font-medium text-[#e74040]">Bienvenido</span>
-      <div className="flex-1 items-center flex w-full justify-evenly p-8 gap-16 flex-wrap">
+      <div className="flex w-full flex-1 flex-wrap items-center justify-evenly gap-16 p-8">
         <HomeCard icon={faFilePen} title="Matricula" path="matricula" />
         <HomeCard icon={faDisplay} title="Historial" path="historial" />
         <HomeCard icon={faGraduationCap} title="Alumnos" path="alumno" />

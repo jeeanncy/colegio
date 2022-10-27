@@ -1,36 +1,78 @@
 import { faUsersLine } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UbigeoPeru from 'peru-ubigeo';
+import { useState, useEffect } from 'react';
+
 import FormInput from '../components/FormInput';
 import useForm from '../hooks/useForm';
 
 const ubigeo = new UbigeoPeru();
-const regions = ubigeo.getRegions();
-const provinces = regions[0].provinces();
-const districts = provinces[0].districts();
 
 export default function Alumno() {
-  const { onInputChange, nombre, apellidoPaterno, apellidoMaterno, fechaNac } =
-    useForm({
-      nombre: '',
-      apellidoPaterno: '',
-      apellidoMaterno: '',
-      fechaNac: '',
-      departamento: '',
-      provincia: '',
-      distrito: '',
-      sexo: '',
-      tipoDocumento: '',
-      nroDocumento: '',
-    });
+  const [
+    {
+      nombre,
+      apellidoPaterno,
+      apellidoMaterno,
+      fechaNac,
+      departamento,
+      provincia,
+      distrito,
+      sexo,
+      tipoDocumento,
+      nroDocumento,
+    },
+    onInputChange,
+    setFormState,
+  ] = useForm({
+    nombre: '',
+    apellidoPaterno: '',
+    apellidoMaterno: '',
+    fechaNac: '',
+    departamento: '',
+    provincia: '',
+    distrito: '',
+    sexo: '',
+    tipoDocumento: '',
+    nroDocumento: '',
+  });
+
+  const [{ listDepart, listProv, listDistr }, setubi] = useState({
+    listDepart: ubigeo.getRegions(),
+    listProv: [],
+    listDistr: [],
+  });
+
+  useEffect(() => {
+    if (departamento !== '') {
+      setFormState((state) => ({ ...state, provincia: '', distrito: '' }));
+
+      setubi((ubi) => ({
+        ...ubi,
+        listProv: ubigeo.getRegions(departamento).data.childrens,
+        listDistr: [],
+      }));
+    }
+  }, [departamento, setFormState]);
+
+  useEffect(() => {
+    if (provincia !== '') {
+      setFormState((state) => ({ ...state, distrito: '' }));
+
+      setubi((ubi) => ({
+        ...ubi,
+        listDistr: ubigeo.getProvinces(provincia).data.childrens,
+      }));
+    }
+  }, [provincia, setFormState]);
 
   return (
-    <div className="shadow-xl p-10 flex flex-col items-center">
+    <div className="flex flex-col items-center p-10 shadow-xl">
       <FontAwesomeIcon
-        className="text-yellow-600 text-5xl mb-3"
+        className="mb-3 text-5xl text-yellow-600"
         icon={faUsersLine}
       />
-      <span className="text-lg font-medium mb-4">Registro del Alumno</span>
+      <span className="mb-4 text-lg font-medium">Registro del Alumno</span>
       <div className="grid grid-cols-2 gap-10">
         <FormInput
           id="nombre"
@@ -64,27 +106,38 @@ export default function Alumno() {
           value={fechaNac}
           onInputChange={onInputChange}
         />
-        {/*
         <FormInput
-          title="Departamentos"
+          id="departamento"
+          description="Departamentos"
           placeholder="Seleccione una opción"
-          selectValues={regions}
+          value={departamento}
+          onInputChange={onInputChange}
+          selectValues={listDepart.map((dep) => dep.name)}
         />
         <FormInput
-          title="Provincias"
+          id="provincia"
+          description="Provincia"
           placeholder="Seleccione una opción"
-          selectValues={provinces}
+          value={provincia}
+          onInputChange={onInputChange}
+          selectValues={listProv.map((prov) => prov.name)}
         />
         <FormInput
-          title="Districtos"
+          id="distrito"
+          description="Distrito"
           placeholder="Seleccione una opción"
-          selectValues={districts}
+          value={distrito}
+          onInputChange={onInputChange}
+          selectValues={listDistr.map((distr) => distr.name)}
         />
         <FormInput
-          title="Sexo"
+          id="sexo"
+          description="Sexo"
           placeholder="Seleccione una opción"
-          selectValues={[{ name: 'M' }, { name: 'F' }]}
-        /> */}
+          value={sexo}
+          onInputChange={onInputChange}
+          selectValues={['M', 'F']}
+        />
       </div>
     </div>
   );
