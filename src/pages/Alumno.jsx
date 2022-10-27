@@ -67,78 +67,104 @@ export default function Alumno() {
   }, [provincia, setFormState]);
 
   return (
-    <div className="flex flex-col items-center p-10 shadow-xl">
-      <FontAwesomeIcon
-        className="mb-3 text-5xl text-yellow-600"
-        icon={faUsersLine}
-      />
-      <span className="mb-4 text-lg font-medium">Registro del Alumno</span>
-      <div className="grid grid-cols-2 gap-10">
-        <FormInput
-          id="nombre"
-          description="Nombres"
-          placeholder="Inserte los nombres"
-          type="text"
-          value={nombre}
-          onInputChange={onInputChange}
+    <div className="flex flex-col items-center gap-10 border-t border-gray-100 p-10 shadow-xl shadow-slate-400/10">
+      <div className="flex flex-col">
+        <FontAwesomeIcon
+          className="mb-3 text-5xl text-yellow-600"
+          icon={faUsersLine}
         />
-        <FormInput
-          id="apellidoPaterno"
-          description="Apellido Paterno"
-          placeholder="Inserte el apellido"
-          type="text"
-          value={apellidoPaterno}
-          onInputChange={onInputChange}
-        />
-        <FormInput
-          id="apellidoMaterno"
-          description="Apellido Materno"
-          placeholder="Inserte el apellido"
-          type="text"
-          value={apellidoMaterno}
-          onInputChange={onInputChange}
-        />
-        <FormInput
-          id="fechaNac"
-          description="Fecha de Nacimiento"
-          placeholder="Fecha"
-          type="date"
-          value={fechaNac}
-          onInputChange={onInputChange}
-        />
-        <FormInput
-          id="departamento"
-          description="Departamentos"
-          placeholder="Seleccione una opción"
-          value={departamento}
-          onInputChange={onInputChange}
-          selectValues={listDepart.map((dep) => dep.name)}
-        />
-        <FormInput
-          id="provincia"
-          description="Provincia"
-          placeholder="Seleccione una opción"
-          value={provincia}
-          onInputChange={onInputChange}
-          selectValues={listProv.map((prov) => prov.name)}
-        />
-        <FormInput
-          id="distrito"
-          description="Distrito"
-          placeholder="Seleccione una opción"
-          value={distrito}
-          onInputChange={onInputChange}
-          selectValues={listDistr.map((distr) => distr.name)}
-        />
-        <FormInput
-          id="sexo"
-          description="Sexo"
-          placeholder="Seleccione una opción"
-          value={sexo}
-          onInputChange={onInputChange}
-          selectValues={['M', 'F']}
-        />
+        <span className="text-lg font-medium">Registro del Alumno</span>
       </div>
+      <div>
+        <div className="grid grid-cols-2 gap-10">
+          <FormInput
+            id="nombre"
+            description="Nombres"
+            placeholder="Inserte los nombres"
+            type="text"
+            value={nombre}
+            onInputChange={onInputChange}
+          />
+          <FormInput
+            id="apellidoPaterno"
+            description="Apellido Paterno"
+            placeholder="Inserte el apellido"
+            type="text"
+            value={apellidoPaterno}
+            onInputChange={onInputChange}
+          />
+          <FormInput
+            id="apellidoMaterno"
+            description="Apellido Materno"
+            placeholder="Inserte el apellido"
+            type="text"
+            value={apellidoMaterno}
+            onInputChange={onInputChange}
+          />
+          <FormInput
+            id="fechaNac"
+            description="Fecha de Nacimiento"
+            placeholder="Fecha"
+            type="date"
+            value={fechaNac}
+            onInputChange={onInputChange}
+          />
+          <FormInput
+            id="departamento"
+            description="Departamentos"
+            placeholder="Seleccione una opción"
+            value={departamento}
+            onInputChange={onInputChange}
+            selectValues={listDepart.map((dep) => dep.name)}
+          />
+          <FormInput
+            id="provincia"
+            description="Provincia"
+            placeholder="Seleccione una opción"
+            value={provincia}
+            onInputChange={onInputChange}
+            selectValues={listProv.map((prov) => prov.name)}
+          />
+          <FormInput
+            id="distrito"
+            description="Distrito"
+            placeholder="Seleccione una opción"
+            value={distrito}
+            onInputChange={onInputChange}
+            selectValues={listDistr.map((distr) => distr.name)}
+          />
+          <FormInput
+            id="sexo"
+            description="Sexo"
+            placeholder="Seleccione una opción"
+            value={sexo}
+            onInputChange={onInputChange}
+            selectValues={['M', 'F']}
+          />
+          <FormInput
+            id="tipoDocumento"
+            description="Tipo Documento"
+            placeholder="Seleccione una opción"
+            value={sexo}
+            onInputChange={onInputChange}
+            selectValues={['DNI / LE', 'Carnet de Extranjeria']}
+          />
+          <FormInput
+            id="nroDocumento"
+            description="Nro Documento"
+            placeholder="Inserte el documento"
+            type="text"
+            value={nroDocumento}
+            onInputChange={onInputChange}
+          />
+        </div>
+      </div>
+      <button
+        type="submit"
+        className="rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white"
+      >
+        Guardar
+      </button>
     </div>
   );
 }
