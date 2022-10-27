@@ -9,7 +9,7 @@ export default function FormInput({
 }) {
   return (
     <div>
-      <span className="text-[0.8rem] text-slate-500">{description}</span>
+      <span className="block text-[0.8rem] text-slate-500">{description}</span>
       {selectValues ? (
         <select
           disabled={selectValues.length === 0}
@@ -17,7 +17,6 @@ export default function FormInput({
           value={value}
           onChange={onInputChange}
           className="mt-0.5
-        block
         w-60
         rounded-lg
         border
@@ -46,7 +45,6 @@ export default function FormInput({
           required
           className="
               mt-0.5
-              block
               w-60
               rounded-lg
               border
