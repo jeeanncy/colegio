@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UbigeoPeru from 'peru-ubigeo';
 import { useState, useEffect } from 'react';
 
-import FormInput from '../components/FormInput';
-import useForm from '../hooks/useForm';
+import FormInput from '../../components/FormInput';
+import useForm from '../../hooks/useForm';
 
 const ubigeo = new UbigeoPeru();
 
-export default function Alumno() {
+export default function RegistAlumno() {
   const [
     {
       nombre,
@@ -70,7 +70,7 @@ export default function Alumno() {
     <div className="flex flex-col items-center gap-10 border-t border-gray-100 p-10 shadow-xl shadow-slate-400/10">
       <div className="flex flex-col">
         <FontAwesomeIcon
-          className="mb-3 text-5xl text-yellow-600"
+          className="mb-3 text-5xl text-orange-400"
           icon={faUsersLine}
         />
         <span className="text-lg font-medium">Registro del Alumno</span>
@@ -145,7 +145,7 @@ export default function Alumno() {
             id="tipoDocumento"
             description="Tipo Documento"
             placeholder="Seleccione una opción"
-            value={sexo}
+            value={tipoDocumento}
             onInputChange={onInputChange}
             selectValues={['DNI / LE', 'Carnet de Extranjeria']}
           />
