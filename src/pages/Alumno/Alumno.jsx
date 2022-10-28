@@ -82,7 +82,7 @@ export default function Alumno() {
         />
         <span className="text-lg font-medium">Lista de Alumno</span>
       </div>
-      <div className="flex justify-end">
+      <div className="flex w-full justify-end">
         <Link to="/registalumno">
           <button
             type="submit"
