@@ -2,6 +2,7 @@ import { faUsersLine } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UbigeoPeru from 'peru-ubigeo';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import FormInput from '../../components/FormInput';
 import useForm from '../../hooks/useForm';
@@ -67,7 +68,7 @@ export default function RegistAlumno() {
   }, [provincia, setFormState]);
 
   return (
-    <div className="flex flex-col items-center gap-10 border-t border-gray-100 p-10 shadow-xl shadow-slate-400/10">
+    <div className="my-8 flex w-fit flex-col items-center gap-10 border-t border-gray-100 p-10 shadow-xl">
       <div className="flex flex-col">
         <FontAwesomeIcon
           className="mb-3 text-5xl text-orange-400"
@@ -159,12 +160,22 @@ export default function RegistAlumno() {
           />
         </div>
       </div>
-      <button
-        type="submit"
-        className="rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white"
-      >
-        Guardar
-      </button>
+      <div className="flex gap-10">
+        <button
+          type="submit"
+          className="rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white"
+        >
+          Guardar
+        </button>
+        <Link to="/alumno">
+          <button
+            type="submit"
+            className="rounded-md bg-red-500 py-1.5 px-10 text-xs text-white"
+          >
+            Cancelar
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -18,9 +18,7 @@ export default function Navbar() {
         <div className="space-x-2">
           <FontAwesomeIcon icon={faUser} />
           <span>Mi cuenta</span>
-          {/* <div> */}
           <FontAwesomeIcon icon={faChevronDown} />
-          {/* </div> */}
         </div>
       </div>
     </header>

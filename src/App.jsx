@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Apoderado from './pages/Apoderado';
 import Alumno from './pages/Alumno/Alumno';
+import RegistAlumno from './pages/Alumno/RegistAlumno';
 
 function App() {
   return (
@@ -12,10 +13,11 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <main className="flex w-full flex-1 flex-col items-center">
-          <div className="flex-w flex w-full max-w-[75rem] flex-1 flex-col items-center p-5">
+          <div className="flex-w flex w-full max-w-[75rem] flex-1 flex-col items-center">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/alumno" element={<Alumno />} />
+              <Route path="/registalumno" element={<RegistAlumno />} />
               <Route path="/apoderado" element={<Apoderado />} />
             </Routes>
           </div>

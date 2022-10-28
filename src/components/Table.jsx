@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTable } from 'react-table';
+import { Link } from 'react-router-dom';
 
 export default function Table({ columns, data }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -49,7 +50,12 @@ export default function Table({ columns, data }) {
               })}
               <td className="border border-gray-400 p-2">
                 <div className="flex justify-between ">
-                  <FontAwesomeIcon className="text-lg" icon={faGraduationCap} />
+                  <Link to="/">
+                    <FontAwesomeIcon
+                      className="text-lg"
+                      icon={faGraduationCap}
+                    />
+                  </Link>
                   <FontAwesomeIcon icon={faPenToSquare} />
                   <FontAwesomeIcon icon={faTrash} />
                 </div>
