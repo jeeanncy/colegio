@@ -72,19 +72,6 @@ export default function RegistAlumno() {
   }, [provinciaID, setFormState]);
 
   const agregarAlumno = () => {
-    console.log({
-      nombres,
-      apellidoPaterno,
-      apellidoMaterno,
-      departamentoID,
-      provinciaID,
-      distritoID,
-      tipoDocumentoID,
-      nroDocumento,
-      sexo,
-      fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
-    });
-
     colegioApi
       .post('/alumno', {
         nombres,

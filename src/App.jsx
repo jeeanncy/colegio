@@ -9,11 +9,11 @@ import RegistAlumno from './pages/Alumno/RegistAlumno';
 
 function App() {
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div className="flex h-screen flex-col">
       <BrowserRouter>
         <Navbar />
         <main className="flex w-full flex-1 flex-col items-center">
-          <div className="flex-w flex w-full max-w-[75rem] flex-1 flex-col items-center">
+          <div className="w-full max-w-[75rem] p-8">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/alumno" element={<Alumno />} />

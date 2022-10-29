@@ -21,20 +21,18 @@ export default function Table({ columns, data }) {
               <th
                 key={column.id}
                 {...column.getHeaderProps()}
-                className="border border-gray-400 px-2"
+                className="border-b-2 border-gray-200 bg-gray-100 px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-700"
               >
                 {column.render('Header')}
               </th>
             ))}
-            <th className="border border-gray-400 p-2 text-gray-400">
-              Opciones
-            </th>
           </tr>
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
+
           return (
             <tr key={row.id} {...row.getRowProps()}>
               {row.cells.map((cell) => {
@@ -42,24 +40,12 @@ export default function Table({ columns, data }) {
                   <td
                     key={cell.id}
                     {...cell.getCellProps()}
-                    className="border border-gray-400 p-2"
+                    className="border-b border-gray-200 bg-white px-5 py-5 text-sm"
                   >
                     {cell.render('Cell')}
                   </td>
                 );
               })}
-              <td className="border border-gray-400 p-2">
-                <div className="flex justify-between ">
-                  <Link to="/">
-                    <FontAwesomeIcon
-                      className="text-lg"
-                      icon={faGraduationCap}
-                    />
-                  </Link>
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                  <FontAwesomeIcon icon={faTrash} />
-                </div>
-              </td>
             </tr>
           );
         })}
