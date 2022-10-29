@@ -94,7 +94,7 @@ export default function RegistAlumno() {
   };
 
   return (
-    <div className="my-8 flex w-fit flex-col items-center gap-10 border-t border-gray-100 p-10 shadow-xl">
+    <div className="m-auto my-8 flex w-fit flex-col items-center gap-10 border-t border-gray-100 p-10 shadow-xl">
       <div className="flex flex-col">
         <FontAwesomeIcon
           className="mb-3 text-5xl text-orange-400"
