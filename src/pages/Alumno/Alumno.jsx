@@ -126,7 +126,6 @@ export default function Alumno() {
                 eliminar(value.id);
               }}
             />
-            {value.id}
           </div>
         ),
       },
