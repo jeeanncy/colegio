@@ -13,6 +13,7 @@ export default function FormInput({
       {selectValues ? (
         <select
           disabled={selectValues.length === 0}
+          required
           name={id}
           value={value}
           onChange={onInputChange}
@@ -29,9 +30,9 @@ export default function FormInput({
           <option disabled value="">
             {placeholder}
           </option>
-          {selectValues.map((slctValue) => (
-            <option key={slctValue} value={slctValue}>
-              {slctValue}
+          {selectValues.map(({ id: optId, name: optName }) => (
+            <option key={optName} value={optId}>
+              {optName}
             </option>
           ))}
         </select>

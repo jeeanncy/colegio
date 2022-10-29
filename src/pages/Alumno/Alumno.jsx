@@ -23,7 +23,7 @@ export default function Alumno() {
     () => [
       {
         Header: 'Alumno',
-        accessor: 'alumno_id',
+        accessor: 'nombres',
       },
       {
         Header: 'Documento',

@@ -1,4 +1,5 @@
 import { faUsersLine } from '@fortawesome/free-solid-svg-icons';
+import { DateTime } from 'luxon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UbigeoPeru from 'peru-ubigeo';
 import { useState, useEffect } from 'react';
@@ -12,30 +13,30 @@ const ubigeo = new UbigeoPeru();
 export default function RegistAlumno() {
   const [
     {
-      nombre,
+      nombres,
       apellidoPaterno,
       apellidoMaterno,
-      fechaNac,
-      departamento,
-      provincia,
-      distrito,
-      sexo,
-      tipoDocumento,
+      departamentoID,
+      provinciaID,
+      distritoID,
+      tipoDocumentoID,
       nroDocumento,
+      sexo,
+      fechaNacimiento,
     },
     onInputChange,
     setFormState,
   ] = useForm({
-    nombre: '',
+    nombres: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
-    fechaNac: '',
-    departamento: '',
-    provincia: '',
-    distrito: '',
-    sexo: '',
-    tipoDocumento: '',
+    departamentoID: '',
+    provinciaID: '',
+    distritoID: '',
+    tipoDocumentoID: '',
     nroDocumento: '',
+    sexo: '',
+    fechaNacimiento: '',
   });
 
   const [{ listDepart, listProv, listDistr }, setubi] = useState({
@@ -45,27 +46,43 @@ export default function RegistAlumno() {
   });
 
   useEffect(() => {
-    if (departamento !== '') {
+    if (departamentoID !== '') {
       setFormState((state) => ({ ...state, provincia: '', distrito: '' }));
 
       setubi((ubi) => ({
         ...ubi,
-        listProv: ubigeo.getRegions(departamento).data.childrens,
+        listProv: ubigeo.getRegions(departamentoID).data.childrens,
         listDistr: [],
       }));
     }
-  }, [departamento, setFormState]);
+  }, [departamentoID, setFormState]);
 
   useEffect(() => {
-    if (provincia !== '') {
+    if (provinciaID !== '') {
       setFormState((state) => ({ ...state, distrito: '' }));
 
       setubi((ubi) => ({
         ...ubi,
-        listDistr: ubigeo.getProvinces(provincia).data.childrens,
+        listDistr: ubigeo.getProvinces(provinciaID).data.childrens,
       }));
     }
-  }, [provincia, setFormState]);
+  }, [provinciaID, setFormState]);
+
+  const agregarAlumno = () => {
+    if (nombres !== null)
+      console.log({
+        nombres,
+        apellidoPaterno,
+        apellidoMaterno,
+        departamentoID,
+        provinciaID,
+        distritoID,
+        tipoDocumentoID,
+        nroDocumento,
+        sexo,
+        fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
+      });
+  };
 
   return (
     <div className="my-8 flex w-fit flex-col items-center gap-10 border-t border-gray-100 p-10 shadow-xl">
@@ -79,11 +96,11 @@ export default function RegistAlumno() {
       <div>
         <div className="grid grid-cols-2 gap-10">
           <FormInput
-            id="nombre"
+            id="nombres"
             description="Nombres"
             placeholder="Inserte los nombres"
             type="text"
-            value={nombre}
+            value={nombres}
             onInputChange={onInputChange}
           />
           <FormInput
@@ -103,36 +120,36 @@ export default function RegistAlumno() {
             onInputChange={onInputChange}
           />
           <FormInput
-            id="fechaNac"
+            id="fechaNacimiento"
             description="Fecha de Nacimiento"
             placeholder="Fecha"
             type="date"
-            value={fechaNac}
+            value={fechaNacimiento}
             onInputChange={onInputChange}
           />
           <FormInput
-            id="departamento"
+            id="departamentoID"
             description="Departamentos"
             placeholder="Seleccione una opción"
-            value={departamento}
+            value={departamentoID}
             onInputChange={onInputChange}
-            selectValues={listDepart.map((dep) => dep.name)}
+            selectValues={listDepart.map(({ id, name }) => ({ id, name }))}
           />
           <FormInput
-            id="provincia"
+            id="provinciaID"
             description="Provincia"
             placeholder="Seleccione una opción"
-            value={provincia}
+            value={provinciaID}
             onInputChange={onInputChange}
-            selectValues={listProv.map((prov) => prov.name)}
+            selectValues={listProv.map(({ id, name }) => ({ id, name }))}
           />
           <FormInput
-            id="distrito"
+            id="distritoID"
             description="Distrito"
             placeholder="Seleccione una opción"
-            value={distrito}
+            value={distritoID}
             onInputChange={onInputChange}
-            selectValues={listDistr.map((distr) => distr.name)}
+            selectValues={listDistr.map(({ id, name }) => ({ id, name }))}
           />
           <FormInput
             id="sexo"
@@ -140,21 +157,33 @@ export default function RegistAlumno() {
             placeholder="Seleccione una opción"
             value={sexo}
             onInputChange={onInputChange}
-            selectValues={['M', 'F']}
+            selectValues={[
+              { id: 'M', name: 'M' },
+              { id: 'M', name: 'F' },
+            ]}
           />
           <FormInput
-            id="tipoDocumento"
+            id="tipoDocumentoID"
             description="Tipo Documento"
             placeholder="Seleccione una opción"
-            value={tipoDocumento}
+            value={tipoDocumentoID}
             onInputChange={onInputChange}
-            selectValues={['DNI / LE', 'Carnet de Extranjeria']}
+            selectValues={[
+              {
+                id: 'D',
+                name: 'DNI / LE',
+              },
+              {
+                id: 'E',
+                name: 'Carnet de Extranjeria',
+              },
+            ]}
           />
           <FormInput
             id="nroDocumento"
             description="Nro Documento"
             placeholder="Inserte el documento"
-            type="text"
+            type="number"
             value={nroDocumento}
             onInputChange={onInputChange}
           />
@@ -164,6 +193,9 @@ export default function RegistAlumno() {
         <button
           type="submit"
           className="rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white"
+          onClick={() => {
+            agregarAlumno();
+          }}
         >
           Guardar
         </button>
