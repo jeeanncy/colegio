@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UbigeoPeru from 'peru-ubigeo';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import FormInput from '../../components/FormInput';
 import useForm from '../../hooks/useForm';
@@ -48,6 +48,8 @@ export default function RegistAlumno() {
     listDistr: [],
   });
 
+  const { id } = useParams();
+
   useEffect(() => {
     if (departamentoID !== '') {
       setFormState((state) => ({ ...state, provincia: '', distrito: '' }));
@@ -71,9 +73,58 @@ export default function RegistAlumno() {
     }
   }, [provinciaID, setFormState]);
 
+  useEffect(() => {
+    const getAlumno = (alumnoId) => {
+      colegioApi
+        .get(`/alumno/${alumnoId}`)
+        .then(({ data }) => {
+          setFormState((state) => ({
+            ...state,
+            nombres: data.nombres,
+            apellidoPaterno: data.apellido_paterno,
+            apellidoMaterno: data.apellido_materno,
+            departamentoID: data.departamento_id,
+            provinciaID: data.provincia_id,
+            distritoID: data.distrito_id,
+            tipoDocumentoID: data.tipo_documento_id,
+            nroDocumento: data.numero_documento,
+            sexo: data.sexo,
+            fechaNacimiento: data.fecha_nacimiento,
+          }));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
+    if (id !== undefined) getAlumno(id);
+  }, [id, setFormState]);
+
   const agregarAlumno = () => {
     colegioApi
       .post('/alumno', {
+        nombres,
+        apellidoPaterno,
+        apellidoMaterno,
+        departamentoID,
+        provinciaID,
+        distritoID,
+        tipoDocumentoID,
+        nroDocumento,
+        sexo,
+        fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
+      })
+      .then(() => {
+        navigate('/alumno');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const actualizarAlumno = (alumnoId) => {
+    colegioApi
+      .put(`/alumno/${alumnoId}`, {
         nombres,
         apellidoPaterno,
         apellidoMaterno,
@@ -100,7 +151,9 @@ export default function RegistAlumno() {
           className="mb-3 text-5xl text-orange-400"
           icon={faUsersLine}
         />
-        <span className="text-lg font-medium">Registro del Alumno</span>
+        <span className="text-lg font-medium">
+          {id === undefined ? 'Registro del Alumno' : 'Editar Alumno'}
+        </span>
       </div>
       <div>
         <div className="grid grid-cols-2 gap-10">
@@ -228,7 +281,8 @@ export default function RegistAlumno() {
             fechaNacimiento === ''
           }
           onClick={() => {
-            agregarAlumno();
+            if (id === undefined) agregarAlumno();
+            else actualizarAlumno(id);
           }}
         >
           Guardar
