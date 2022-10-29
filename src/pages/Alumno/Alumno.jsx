@@ -82,18 +82,18 @@ export default function Alumno() {
         />
         <span className="text-lg font-medium">Lista de Alumno</span>
       </div>
+      <div className="w-[70rem] overflow-x-auto">
+        <Table columns={columns} data={data} />
+      </div>
       <div className="flex w-full justify-end">
         <Link to="/registalumno">
           <button
             type="submit"
-            className="rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white"
+            className="rounded-md bg-[#635DFF] py-1.5 px-10 text-sm text-white"
           >
             Anadir
           </button>
         </Link>
-      </div>
-      <div className="w-[70rem] overflow-x-auto">
-        <Table columns={columns} data={data} />
       </div>
     </div>
   );

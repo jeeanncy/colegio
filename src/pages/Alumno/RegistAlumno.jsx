@@ -69,19 +69,44 @@ export default function RegistAlumno() {
   }, [provinciaID, setFormState]);
 
   const agregarAlumno = () => {
-    if (nombres !== null)
-      console.log({
-        nombres,
-        apellidoPaterno,
-        apellidoMaterno,
-        departamentoID,
-        provinciaID,
-        distritoID,
-        tipoDocumentoID,
-        nroDocumento,
-        sexo,
-        fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
-      });
+    console.log(
+      nombres !== '' &&
+        apellidoPaterno !== '' &&
+        apellidoMaterno !== '' &&
+        departamentoID !== '' &&
+        provinciaID !== '' &&
+        distritoID !== '' &&
+        tipoDocumentoID !== '' &&
+        nroDocumento !== '' &&
+        sexo !== '' &&
+        fechaNacimiento !== ''
+    );
+
+    console.log({
+      nombres,
+      apellidoPaterno,
+      apellidoMaterno,
+      departamentoID,
+      provinciaID,
+      distritoID,
+      tipoDocumentoID,
+      nroDocumento,
+      sexo,
+      fechaNacimiento,
+    });
+
+    //   if (
+    //     nombres !== null &&
+    //     apellidoPaterno !== null &&
+    //     apellidoMaterno !== null &&
+    //     departamentoID !== null &&
+    //     provinciaID !== null &&
+    //     distritoID !== null &&
+    //     tipoDocumentoID !== null &&
+    //     nroDocumento !== null &&
+    //     sexo !== null &&
+    //     fechaNacimiento !== null
+    //   )
   };
 
   return (
@@ -171,11 +196,11 @@ export default function RegistAlumno() {
             selectValues={[
               {
                 id: 'D',
-                name: 'DNI / LE',
+                name: 'DNI',
               },
               {
                 id: 'E',
-                name: 'Carnet de Extranjeria',
+                name: 'CE',
               },
             ]}
           />
@@ -192,7 +217,32 @@ export default function RegistAlumno() {
       <div className="flex gap-10">
         <button
           type="submit"
-          className="rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white"
+          className={
+            nombres === '' ||
+            apellidoPaterno === '' ||
+            apellidoMaterno === '' ||
+            departamentoID === '' ||
+            provinciaID === '' ||
+            distritoID === '' ||
+            tipoDocumentoID === '' ||
+            nroDocumento === '' ||
+            sexo === '' ||
+            fechaNacimiento === ''
+              ? 'rounded-md bg-gray-500 py-1.5 px-10 text-xs text-gray-300'
+              : 'rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white'
+          }
+          disabled={
+            nombres === '' ||
+            apellidoPaterno === '' ||
+            apellidoMaterno === '' ||
+            departamentoID === '' ||
+            provinciaID === '' ||
+            distritoID === '' ||
+            tipoDocumentoID === '' ||
+            nroDocumento === '' ||
+            sexo === '' ||
+            fechaNacimiento === ''
+          }
           onClick={() => {
             agregarAlumno();
           }}

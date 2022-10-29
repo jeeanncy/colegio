@@ -21,7 +21,7 @@ export default function Table({ columns, data }) {
               <th
                 key={column.id}
                 {...column.getHeaderProps()}
-                className="border border-gray-400 p-2"
+                className="border border-gray-400 px-2"
               >
                 {column.render('Header')}
               </th>
