@@ -3,10 +3,11 @@ import { DateTime } from 'luxon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UbigeoPeru from 'peru-ubigeo';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import FormInput from '../../components/FormInput';
 import useForm from '../../hooks/useForm';
+import colegioApi from '../../api/colegioApi';
 
 const ubigeo = new UbigeoPeru();
 
@@ -39,6 +40,8 @@ export default function RegistAlumno() {
     fechaNacimiento: '',
   });
 
+  const navigate = useNavigate();
+
   const [{ listDepart, listProv, listDistr }, setubi] = useState({
     listDepart: ubigeo.getRegions(),
     listProv: [],
@@ -69,19 +72,6 @@ export default function RegistAlumno() {
   }, [provinciaID, setFormState]);
 
   const agregarAlumno = () => {
-    console.log(
-      nombres !== '' &&
-        apellidoPaterno !== '' &&
-        apellidoMaterno !== '' &&
-        departamentoID !== '' &&
-        provinciaID !== '' &&
-        distritoID !== '' &&
-        tipoDocumentoID !== '' &&
-        nroDocumento !== '' &&
-        sexo !== '' &&
-        fechaNacimiento !== ''
-    );
-
     console.log({
       nombres,
       apellidoPaterno,
@@ -92,21 +82,28 @@ export default function RegistAlumno() {
       tipoDocumentoID,
       nroDocumento,
       sexo,
-      fechaNacimiento,
+      fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
     });
 
-    //   if (
-    //     nombres !== null &&
-    //     apellidoPaterno !== null &&
-    //     apellidoMaterno !== null &&
-    //     departamentoID !== null &&
-    //     provinciaID !== null &&
-    //     distritoID !== null &&
-    //     tipoDocumentoID !== null &&
-    //     nroDocumento !== null &&
-    //     sexo !== null &&
-    //     fechaNacimiento !== null
-    //   )
+    colegioApi
+      .post('/alumno', {
+        nombres,
+        apellidoPaterno,
+        apellidoMaterno,
+        departamentoID,
+        provinciaID,
+        distritoID,
+        tipoDocumentoID,
+        nroDocumento,
+        sexo,
+        fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
+      })
+      .then(() => {
+        navigate('/alumno');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
