@@ -195,7 +195,10 @@ export default function RegistAlumno() {
             placeholder="Seleccione una opción"
             value={departamentoID}
             onInputChange={onInputChange}
-            selectValues={listDepart.map(({ id, name }) => ({ id, name }))}
+            selectValues={listDepart.map(({ id: departId, name }) => ({
+              id: departId,
+              name,
+            }))}
           />
           <FormInput
             id="provinciaID"
@@ -203,7 +206,10 @@ export default function RegistAlumno() {
             placeholder="Seleccione una opción"
             value={provinciaID}
             onInputChange={onInputChange}
-            selectValues={listProv.map(({ id, name }) => ({ id, name }))}
+            selectValues={listProv.map(({ id: provId, name }) => ({
+              id: provId,
+              name,
+            }))}
           />
           <FormInput
             id="distritoID"
@@ -211,7 +217,10 @@ export default function RegistAlumno() {
             placeholder="Seleccione una opción"
             value={distritoID}
             onInputChange={onInputChange}
-            selectValues={listDistr.map(({ id, name }) => ({ id, name }))}
+            selectValues={listDistr.map(({ id: distrId, name }) => ({
+              id: distrId,
+              name,
+            }))}
           />
           <FormInput
             id="sexo"

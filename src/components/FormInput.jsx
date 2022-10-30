@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 export default function FormInput({
   id,
   description,
@@ -43,6 +45,11 @@ export default function FormInput({
           value={value}
           onChange={onInputChange}
           placeholder={placeholder}
+          max={
+            type === 'date'
+              ? DateTime.now().minus({ years: 3 }).toFormat('yyyy-MM-dd')
+              : ''
+          }
           required
           className="
               mt-0.5
