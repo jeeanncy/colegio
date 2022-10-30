@@ -221,7 +221,7 @@ export default function RegistAlumno() {
             onInputChange={onInputChange}
             selectValues={[
               { id: 'M', name: 'M' },
-              { id: 'M', name: 'F' },
+              { id: 'F', name: 'F' },
             ]}
           />
           <FormInput
