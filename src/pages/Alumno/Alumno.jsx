@@ -1,5 +1,6 @@
 import {
   faGraduationCap,
+  faMagnifyingGlass,
   faPenToSquare,
   faTrash,
   faUsersLine,
@@ -12,6 +13,7 @@ import Table from '../../components/Table';
 
 export default function Alumno() {
   const [data, setdata] = useState([]);
+  const [searchValue, setsearchValue] = useState('');
 
   const getAlumnos = () => {
     colegioApi
@@ -35,6 +37,29 @@ export default function Alumno() {
   useEffect(() => {
     getAlumnos();
   }, []);
+
+  useEffect(() => {
+    if (searchValue.trim().length > 0) {
+      colegioApi
+        .get(`/alumno/search/${searchValue}`)
+        .then((response) => {
+          setdata(
+            response.data.map((item) => ({
+              ...item,
+              custom: {
+                estaMatric: item.matriculado !== 'No',
+                id: item.alumno_id,
+              },
+            }))
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      getAlumnos();
+    }
+  }, [searchValue]);
 
   const eliminar = (id) => {
     colegioApi
@@ -134,13 +159,29 @@ export default function Alumno() {
   );
 
   return (
-    <div className="w-full border-t border-gray-100 p-10 shadow-xl shadow-slate-400/10">
-      <div className="flex flex-col">
+    <div className="w-full space-y-4 border-t border-gray-100 p-10 shadow-xl shadow-slate-400/10">
+      <div className="text-center">
         <FontAwesomeIcon
           className="mb-3 text-5xl text-orange-400"
           icon={faUsersLine}
         />
-        <span className="text-lg font-medium">Lista de Alumno</span>
+        <span className="block text-lg font-medium">Lista de Alumno</span>
+      </div>
+      <div className="flex w-full justify-end">
+        <div className="hover-scale-item flex w-32 cursor-default items-center gap-2 rounded-full bg-gray-100 py-3 px-5 hover:scale-100 md:w-56">
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="text-sm " />
+          <input
+            id="search"
+            className="w-full bg-transparent outline-none"
+            type="text"
+            placeholder="Buscar"
+            value={searchValue}
+            onChange={({ target }) => {
+              const { value } = target;
+              setsearchValue(value);
+            }}
+          />
+        </div>
       </div>
       <div className="w-full overflow-x-auto border">
         <Table columns={columns} data={data} />

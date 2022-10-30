@@ -1,12 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  faGraduationCap,
-  faPenToSquare,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useTable } from 'react-table';
-import { Link } from 'react-router-dom';
 
 export default function Table({ columns, data }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
