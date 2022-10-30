@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
-export default function HomeCard({ icon, title, path }) {
+export default function HomeCard({ icon, title, path, disabled }) {
   return (
     <Link
       to={path}
-      className="max-w-md rounded-lg border-t border-gray-100 p-8 shadow-xl shadow-slate-400/10"
+      className={`max-w-md rounded-lg border-t border-gray-100 p-8 shadow-xl shadow-slate-400/10 ${
+        disabled ? 'pointer-events-none' : ''
+      }`}
     >
       <div className="mb-2 w-fit rounded-full bg-[#e74040] p-4">
         <FontAwesomeIcon className="text-xl text-white" icon={icon} />
