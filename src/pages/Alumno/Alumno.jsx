@@ -133,14 +133,14 @@ export default function Alumno() {
         // eslint-disable-next-line react/no-unstable-nested-components
         Cell: ({ value }) => (
           <div className="flex justify-between gap-4">
-            {/* <Link to="/"> */}
-            <FontAwesomeIcon
-              className={`text-xl ${
-                value.estaMatric ? 'cursor-not-allowed text-gray-400' : ''
-              }   `}
-              icon={faGraduationCap}
-            />
-            {/* </Link> */}
+            <Link to={`/matricula/${value.id}`}>
+              <FontAwesomeIcon
+                className={`text-xl ${
+                  value.estaMatric ? 'cursor-not-allowed text-gray-400' : ''
+                }   `}
+                icon={faGraduationCap}
+              />
+            </Link>
             <Link to={`/formalumno/${value.id}`}>
               <FontAwesomeIcon
                 className="text-xl text-blue-500"

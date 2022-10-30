@@ -9,6 +9,7 @@ import Profesor from './pages/Profesor/Profesor';
 import FormProfesor from './pages/Profesor/FormProfesor';
 import Apoderado from './pages/Apoderado/Apoderado';
 import FormApoderado from './pages/Apoderado/FormApoderado';
+import Matricula from './pages/Alumno/Matricula';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/apoderado" element={<Apoderado />} />
               <Route path="/formapoderado" element={<FormApoderado />} />
               <Route path="/formapoderado/:id" element={<FormApoderado />} />
+              <Route path="/matricula/:id" element={<Matricula />} />
             </Routes>
           </div>
         </main>
