@@ -6,7 +6,7 @@ export default function Table({ columns, data }) {
     useTable({ columns, data });
 
   return (
-    <table {...getTableProps()}>
+    <table {...getTableProps()} className="w-full">
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr key={headerGroup.id} {...headerGroup.getHeaderGroupProps()}>

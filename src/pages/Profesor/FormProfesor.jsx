@@ -11,12 +11,15 @@ import colegioApi from '../../api/colegioApi';
 
 const ubigeo = new UbigeoPeru();
 
-export default function RegistAlumno() {
+export default function FormProfesor() {
   const [
     {
       nombres,
       apellidoPaterno,
       apellidoMaterno,
+      email,
+      celular,
+      telefono,
       departamentoID,
       provinciaID,
       distritoID,
@@ -32,6 +35,9 @@ export default function RegistAlumno() {
     apellidoPaterno: '',
     apellidoMaterno: '',
     departamentoID: '',
+    email: '',
+    celular: '',
+    telefono: '',
     provinciaID: '',
     distritoID: '',
     tipoDocumentoID: '',
@@ -42,6 +48,8 @@ export default function RegistAlumno() {
 
   const navigate = useNavigate();
 
+  const [isValid, setisValid] = useState(false);
+
   const [{ listDepart, listProv, listDistr }, setubi] = useState({
     listDepart: ubigeo.getRegions(),
     listProv: [],
@@ -49,6 +57,38 @@ export default function RegistAlumno() {
   });
 
   const { id } = useParams();
+
+  useEffect(() => {
+    setisValid(
+      nombres !== '' &&
+        apellidoPaterno !== '' &&
+        apellidoMaterno !== '' &&
+        email !== '' &&
+        celular !== '' &&
+        telefono !== '' &&
+        departamentoID !== '' &&
+        provinciaID !== '' &&
+        distritoID !== '' &&
+        tipoDocumentoID !== '' &&
+        nroDocumento !== '' &&
+        sexo !== '' &&
+        fechaNacimiento !== ''
+    );
+  }, [
+    nombres,
+    apellidoPaterno,
+    apellidoMaterno,
+    email,
+    celular,
+    telefono,
+    departamentoID,
+    provinciaID,
+    distritoID,
+    tipoDocumentoID,
+    nroDocumento,
+    sexo,
+    fechaNacimiento,
+  ]);
 
   useEffect(() => {
     if (departamentoID !== '') {
@@ -74,16 +114,18 @@ export default function RegistAlumno() {
   }, [provinciaID, setFormState]);
 
   useEffect(() => {
-    const getAlumno = (alumnoId) => {
+    const getProfesor = (profesorId) => {
       colegioApi
-        .get(`/alumno/${alumnoId}`)
+        .get(`/profesor/${profesorId}`)
         .then(({ data }) => {
-          setFormState((state) => ({
-            ...state,
+          setFormState(() => ({
             nombres: data.nombres,
             apellidoPaterno: data.apellido_paterno,
             apellidoMaterno: data.apellido_materno,
             departamentoID: data.departamento_id,
+            email: data.email,
+            celular: data.celular,
+            telefono: data.telefono,
             provinciaID: data.provincia_id,
             distritoID: data.distrito_id,
             tipoDocumentoID: data.tipo_documento_id,
@@ -97,15 +139,18 @@ export default function RegistAlumno() {
         });
     };
 
-    if (id !== undefined) getAlumno(id);
+    if (id !== undefined) getProfesor(id);
   }, [id, setFormState]);
 
-  const agregarAlumno = () => {
+  const agregarProfesor = () => {
     colegioApi
-      .post('/alumno', {
+      .post('/profesor', {
         nombres,
         apellidoPaterno,
         apellidoMaterno,
+        email,
+        celular,
+        telefono,
         departamentoID,
         provinciaID,
         distritoID,
@@ -115,19 +160,22 @@ export default function RegistAlumno() {
         fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
       })
       .then(() => {
-        navigate('/alumno');
+        navigate('/profesor');
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const actualizarAlumno = (alumnoId) => {
+  const actualizarProfesor = (profesorId) => {
     colegioApi
-      .put(`/alumno/${alumnoId}`, {
+      .put(`/profesor/${profesorId}`, {
         nombres,
         apellidoPaterno,
         apellidoMaterno,
+        email,
+        celular,
+        telefono,
         departamentoID,
         provinciaID,
         distritoID,
@@ -137,7 +185,7 @@ export default function RegistAlumno() {
         fechaNacimiento: DateTime.fromISO(fechaNacimiento).toISO(),
       })
       .then(() => {
-        navigate('/alumno');
+        navigate('/profesor');
       })
       .catch((error) => {
         console.log(error);
@@ -152,7 +200,7 @@ export default function RegistAlumno() {
           icon={faUsersLine}
         />
         <span className="text-lg font-medium">
-          {id === undefined ? 'Registro del Alumno' : 'Editar Alumno'}
+          {id === undefined ? 'Registro del Profesor' : 'Editar Profesor'}
         </span>
       </div>
       <div>
@@ -258,45 +306,49 @@ export default function RegistAlumno() {
             value={nroDocumento}
             onInputChange={onInputChange}
           />
+          <FormInput
+            id="email"
+            description="Correo"
+            placeholder="Inserte el correo"
+            type="email"
+            value={email}
+            onInputChange={onInputChange}
+          />
+
+          <FormInput
+            id="celular"
+            description="Num celular"
+            placeholder="Inserte el numero celular"
+            type="number"
+            value={celular}
+            onInputChange={onInputChange}
+          />
+          <FormInput
+            id="telefono"
+            description="Telefono"
+            placeholder="Inserte el telefono"
+            type="number"
+            value={telefono}
+            onInputChange={onInputChange}
+          />
         </div>
       </div>
       <div className="flex gap-10">
         <button
           type="submit"
           className={
-            nombres === '' ||
-            apellidoPaterno === '' ||
-            apellidoMaterno === '' ||
-            departamentoID === '' ||
-            provinciaID === '' ||
-            distritoID === '' ||
-            tipoDocumentoID === '' ||
-            nroDocumento === '' ||
-            sexo === '' ||
-            fechaNacimiento === ''
-              ? 'rounded-md bg-gray-500 py-1.5 px-10 text-xs text-gray-300'
-              : 'rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white'
-          }
-          disabled={
-            nombres === '' ||
-            apellidoPaterno === '' ||
-            apellidoMaterno === '' ||
-            departamentoID === '' ||
-            provinciaID === '' ||
-            distritoID === '' ||
-            tipoDocumentoID === '' ||
-            nroDocumento === '' ||
-            sexo === '' ||
-            fechaNacimiento === ''
+            isValid
+              ? 'rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white'
+              : 'rounded-md bg-gray-500 py-1.5 px-10 text-xs text-gray-300 cursor-not-allowed'
           }
           onClick={() => {
-            if (id === undefined) agregarAlumno();
-            else actualizarAlumno(id);
+            if (id === undefined) agregarProfesor();
+            else actualizarProfesor(id);
           }}
         >
           Guardar
         </button>
-        <Link to="/alumno">
+        <Link to="/profesor">
           <button
             type="submit"
             className="rounded-md bg-red-500 py-1.5 px-10 text-xs text-white"

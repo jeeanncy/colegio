@@ -3,9 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Apoderado from './pages/Apoderado';
 import Alumno from './pages/Alumno/Alumno';
-import RegistAlumno from './pages/Alumno/RegistAlumno';
+import FormAlumno from './pages/Alumno/FormAlumno';
+import Profesor from './pages/Profesor/Profesor';
+import FormProfesor from './pages/Profesor/FormProfesor';
+import Apoderado from './pages/Apoderado/Apoderado';
+import FormApoderado from './pages/Apoderado/FormApoderado';
 
 function App() {
   return (
@@ -17,9 +20,14 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/alumno" element={<Alumno />} />
-              <Route path="/registalumno" element={<RegistAlumno />} />
-              <Route path="/registalumno/:id" element={<RegistAlumno />} />
+              <Route path="/formalumno" element={<FormAlumno />} />
+              <Route path="/formalumno/:id" element={<FormAlumno />} />
+              <Route path="/profesor" element={<Profesor />} />
+              <Route path="/formprofesor" element={<FormProfesor />} />
+              <Route path="/formprofesor/:id" element={<FormProfesor />} />
               <Route path="/apoderado" element={<Apoderado />} />
+              <Route path="/formapoderado" element={<FormApoderado />} />
+              <Route path="/formapoderado/:id" element={<FormApoderado />} />
             </Routes>
           </div>
         </main>

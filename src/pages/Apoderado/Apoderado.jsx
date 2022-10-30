@@ -1,5 +1,4 @@
 import {
-  faGraduationCap,
   faMagnifyingGlass,
   faPenToSquare,
   faTrash,
@@ -12,20 +11,19 @@ import { Link } from 'react-router-dom';
 import colegioApi from '../../api/colegioApi';
 import Table from '../../components/Table';
 
-export default function Alumno() {
+export default function Apoderado() {
   const [data, setdata] = useState([]);
   const [searchValue, setsearchValue] = useState('');
 
-  const getAlumnos = () => {
+  const getApoderados = () => {
     colegioApi
-      .get('/alumno')
+      .get('/apoderado')
       .then((response) => {
         setdata(
           response.data.map((item) => ({
             ...item,
             custom: {
-              estaMatric: item.matriculado !== 'No',
-              id: item.alumno_id,
+              id: item.apoderado_id,
             },
           }))
         );
@@ -36,20 +34,19 @@ export default function Alumno() {
   };
 
   useEffect(() => {
-    getAlumnos();
+    getApoderados();
   }, []);
 
   useEffect(() => {
     if (searchValue.trim().length > 0) {
       colegioApi
-        .get(`/alumno/search/${searchValue}`)
+        .get(`/apoderado/search/${searchValue}`)
         .then((response) => {
           setdata(
             response.data.map((item) => ({
               ...item,
               custom: {
-                estaMatric: item.matriculado !== 'No',
-                id: item.alumno_id,
+                id: item.apoderado_id,
               },
             }))
           );
@@ -58,17 +55,17 @@ export default function Alumno() {
           console.log(error);
         });
     } else {
-      getAlumnos();
+      getApoderados();
     }
   }, [searchValue]);
 
   const eliminar = useCallback(
     (id) => () => {
       colegioApi
-        .delete(`/alumno/${id}`)
+        .delete(`/apoderado/${id}`)
         .then((response) => {
           console.log(response.data.mensaje);
-          getAlumnos();
+          getApoderados();
         })
         .catch((error) => {
           console.log(error);
@@ -80,68 +77,37 @@ export default function Alumno() {
   const columns = useMemo(
     () => [
       {
-        Header: 'Alumno',
+        Header: 'Nombre',
         accessor: 'nombres',
       },
       {
-        Header: 'Documento',
-        accessor: 'documento',
+        Header: 'Apellido Paterno',
+        accessor: 'apellido_paterno',
       },
       {
-        Header: 'Num Documento',
-        accessor: 'numero_documento',
+        Header: 'Apellido Materno',
+        accessor: 'apellido_materno',
       },
       {
-        Header: 'Edad',
-        accessor: 'edad',
+        Header: 'Correo',
+        accessor: 'email',
       },
       {
-        Header: 'Sexo',
-        accessor: 'sexo',
+        Header: 'Celular',
+        accessor: 'celular',
       },
       {
-        Header: 'Nivel',
-        accessor: 'nivel',
+        Header: 'Telefono',
+        accessor: 'telefono',
       },
-      {
-        Header: 'Grado',
-        accessor: 'grado',
-      },
-      {
-        Header: 'Modalidad',
-        accessor: 'modalidad',
-      },
-      {
-        Header: 'Turno',
-        accessor: 'turno',
-      },
-      {
-        Header: 'Estado',
-        accessor: 'estado',
-      },
-      {
-        Header: 'Situacion',
-        accessor: 'situacion',
-      },
-      {
-        Header: 'Matriculado',
-        accessor: 'matriculado',
-      },
+
       {
         Header: '',
         accessor: 'custom',
         // eslint-disable-next-line react/no-unstable-nested-components
         Cell: ({ value }) => (
           <div className="flex justify-between gap-4">
-            {/* <Link to="/"> */}
-            <FontAwesomeIcon
-              className={`text-xl ${
-                value.estaMatric ? 'cursor-not-allowed text-gray-400' : ''
-              }   `}
-              icon={faGraduationCap}
-            />
-            {/* </Link> */}
-            <Link to={`/formalumno/${value.id}`}>
+            <Link to={`/formapoderado/${value.id}`}>
               <FontAwesomeIcon
                 className="text-xl text-blue-500"
                 icon={faPenToSquare}
@@ -167,7 +133,7 @@ export default function Alumno() {
           className="mb-3 text-5xl text-orange-400"
           icon={faUsersLine}
         />
-        <span className="block text-lg font-medium">Lista de Alumnos</span>
+        <span className="block text-lg font-medium">Lista de Apoderados</span>
       </div>
       <div className="flex w-full justify-end">
         <div className="hover-scale-item flex w-32 cursor-default items-center gap-2 rounded-full bg-gray-100 py-3 px-5 hover:scale-100 md:w-56">
@@ -189,7 +155,7 @@ export default function Alumno() {
         <Table columns={columns} data={data} />
       </div>
       <div className="flex w-full justify-end">
-        <Link to="/formalumno">
+        <Link to="/formapoderado">
           <button
             type="submit"
             className="rounded-md bg-[#635DFF] py-1.5 px-10 text-sm text-white"
