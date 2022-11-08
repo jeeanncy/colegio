@@ -80,7 +80,7 @@ export default function FormAlumno() {
 
   useEffect(() => {
     if (departamentoID !== '') {
-      setFormState((state) => ({ ...state, provincia: '', distrito: '' }));
+      setFormState((state) => ({ ...state, provinciaID: '', distritoID: '' }));
 
       setubi((ubi) => ({
         ...ubi,
@@ -92,7 +92,7 @@ export default function FormAlumno() {
 
   useEffect(() => {
     if (provinciaID !== '') {
-      setFormState((state) => ({ ...state, distrito: '' }));
+      setFormState((state) => ({ ...state, distritoID: '' }));
 
       setubi((ubi) => ({
         ...ubi,
@@ -293,7 +293,7 @@ export default function FormAlumno() {
           className={
             isValid
               ? 'rounded-md bg-[#635DFF] py-1.5 px-10 text-xs text-white'
-              : 'rounded-md bg-gray-500 py-1.5 px-10 text-xs text-gray-300 cursor-not-allowed'
+              : 'cursor-not-allowed rounded-md bg-gray-500 py-1.5 px-10 text-xs text-gray-300'
           }
           onClick={() => {
             if (id === undefined) agregarAlumno();
